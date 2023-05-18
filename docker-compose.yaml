@@ -1,0 +1,20 @@
+version: "3"
+services:
+  master:
+    container_name: master
+    image: jenkins/jenkins:lts
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+    environment:
+      TZ: "Asia/Seoul"
+    links:
+      - worker01
+
+  slave01:
+    container_name: worker01
+    image: jenkins/ssh-agent
+    environment:
+      - JENKINS_SLAVE_SSH_PUBKEY=
